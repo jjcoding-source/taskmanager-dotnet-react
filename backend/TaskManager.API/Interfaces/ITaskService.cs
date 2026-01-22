@@ -1,4 +1,5 @@
 ﻿using TaskManager.API.Models;
+using TaskManager.API.DTOs;
 
 namespace TaskManager.API.Interfaces
 {
@@ -6,8 +7,8 @@ namespace TaskManager.API.Interfaces
     {
         List<TaskItem> GetAll();
         TaskItem? GetById(int id);
-        TaskItem Create(TaskItem task);
-        TaskItem? Update(int id, TaskItem task);
+        TaskItem Create(CreateTaskDto dto);
+        TaskItem? Update(int id, UpdateTaskDto dto);
         bool Delete(int id);
     }
 }

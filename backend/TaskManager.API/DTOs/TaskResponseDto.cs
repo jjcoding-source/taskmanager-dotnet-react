@@ -1,8 +1,9 @@
-﻿using System;
-
-public class Class1
+﻿namespace TaskManager.API.DTOs
 {
-	public Class1()
-	{
-	}
+    public class TaskResponseDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool IsCompleted { get; set; }
+    }
 }

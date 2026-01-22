@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskManager.API.Interfaces;
-using TaskManager.API.Models;
+using TaskManager.API.DTOs;
 
 namespace TaskManager.API.Controllers
 {
@@ -16,13 +16,13 @@ namespace TaskManager.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllTasks()
+        public IActionResult GetAll()
         {
             return Ok(_taskService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetTaskById(int id)
+        public IActionResult GetById(int id)
         {
             var task = _taskService.GetById(id);
             if (task == null)
@@ -32,27 +32,27 @@ namespace TaskManager.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTask(TaskItem task)
+        public IActionResult Create(CreateTaskDto dto)
         {
-            var createdTask = _taskService.Create(task);
-            return Ok(createdTask);
+            var task = _taskService.Create(dto);
+            return Ok(task);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTask(int id, TaskItem task)
+        public IActionResult Update(int id, UpdateTaskDto dto)
         {
-            var updatedTask = _taskService.Update(id, task);
-            if (updatedTask == null)
+            var task = _taskService.Update(id, dto);
+            if (task == null)
                 return NotFound();
 
-            return Ok(updatedTask);
+            return Ok(task);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteTask(int id)
+        public IActionResult Delete(int id)
         {
-            var result = _taskService.Delete(id);
-            if (!result)
+            var success = _taskService.Delete(id);
+            if (!success)
                 return NotFound();
 
             return Ok(new { message = "Task deleted successfully" });

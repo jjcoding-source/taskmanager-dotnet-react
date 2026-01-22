@@ -1,6 +1,7 @@
 ﻿using TaskManager.API.Data;
 using TaskManager.API.Interfaces;
 using TaskManager.API.Models;
+using TaskManager.API.DTOs;
 
 namespace TaskManager.API.Services
 {
@@ -23,25 +24,32 @@ namespace TaskManager.API.Services
             return _context.Tasks.Find(id);
         }
 
-        public TaskItem Create(TaskItem task)
+        public TaskItem Create(CreateTaskDto dto)
         {
+            var task = new TaskItem
+            {
+                Title = dto.Title,
+                Description = dto.Description,
+                IsCompleted = false
+            };
+
             _context.Tasks.Add(task);
             _context.SaveChanges();
             return task;
         }
 
-        public TaskItem? Update(int id, TaskItem task)
+        public TaskItem? Update(int id, UpdateTaskDto dto)
         {
-            var existingTask = _context.Tasks.Find(id);
-            if (existingTask == null)
+            var task = _context.Tasks.Find(id);
+            if (task == null)
                 return null;
 
-            existingTask.Title = task.Title;
-            existingTask.Description = task.Description;
-            existingTask.IsCompleted = task.IsCompleted;
+            task.Title = dto.Title;
+            task.Description = dto.Description;
+            task.IsCompleted = dto.IsCompleted;
 
             _context.SaveChanges();
-            return existingTask;
+            return task;
         }
 
         public bool Delete(int id)

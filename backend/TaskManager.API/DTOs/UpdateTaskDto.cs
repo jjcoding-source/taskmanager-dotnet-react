@@ -1,8 +1,16 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Class1
+namespace TaskManager.API.DTOs
 {
-	public Class1()
-	{
-	}
+    public class UpdateTaskDto
+    {
+        [Required]
+        [MaxLength(100)]
+        public string Title { get; set; }
+
+        [MaxLength(250)]
+        public string Description { get; set; }
+
+        public bool IsCompleted { get; set; }
+    }
 }
